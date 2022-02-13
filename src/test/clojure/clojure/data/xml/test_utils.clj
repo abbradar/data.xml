@@ -14,6 +14,6 @@
 (defn test-stream [x]
   (java.io.ByteArrayInputStream. (.getBytes x "UTF-8")))
 
-(def lazy-parse* (comp parse test-stream))
+(defn lazy-parse* [x & opts] (apply parse (test-stream x) opts))
 
 

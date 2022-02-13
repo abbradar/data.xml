@@ -129,3 +129,12 @@
         [{:tag :value, :attrs {}, :content
           [{:tag :string, :attrs {}, :content
             ["\n          Clojure XML <3 \n        "]}]}]}]}]}))
+
+(deftest test-entity-references
+    (let [input (str "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                     "<!DOCTYPE foo ["
+                     "  <!ELEMENT foo ANY>"
+                     "  <!ENTITY ref \"my reference\">]>"
+                     "<foo>&ref;</foo>")
+          expected (element :foo {} :ref)]
+    (is (= expected (lazy-parse* input :coalescing false :replacing-entity-references false)))))

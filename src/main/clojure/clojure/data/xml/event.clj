@@ -37,6 +37,7 @@
 (defrecord CDataEvent [str])
 (defrecord CommentEvent [str])
 (defrecord QNameEvent [qn])
+(defrecord EntityReferenceEvent [entity])
 
 ;; EndElementEvent doesn't have any data, so make it a singleton
 (deftype EndElementEvent [])
@@ -107,6 +108,7 @@
     (instance? CharsEvent event) (:str event)
     (instance? CDataEvent event) (cdata (:str event))
     (instance? CommentEvent event) (xml-comment (:str event))
+    (instance? EntityReferenceEvent event) (keyword (:entity event))
     :else (throw (ex-info "Illegal argument, not an event object" {:event event}))))
 
 (defn event-exit? [event]

@@ -55,7 +55,7 @@ Input source can be a java.io.InputStream or java.io.Reader
 
 Options:
 
-  :include-node? subset of #{:element :characters :comment}, default #{:element :characters}
+  :include-node? subset of #{:element :characters :comment :entity-reference}, default #{:element :characters :entity-reference}
   :location-info pass false to skip generating location meta data, default true
 
 See https://docs.oracle.com/javase/8/docs/api/javax/xml/stream/XMLInputFactory.html
@@ -73,7 +73,7 @@ for documentation on xml options. These are the defaults:
    }"
   {:arglists (list ['source parser-opts-arg])}
   [source opts]
-  (let [props* (merge {:include-node? #{:element :characters}
+  (let [props* (merge {:include-node? #{:element :characters :entity-reference}
                        :coalescing true
                        :supporting-external-entities false
                        :location-info true
